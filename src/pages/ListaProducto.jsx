@@ -3,7 +3,7 @@ import { Form, Col, InputGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // https://codepen.io/monsieurv/pen/abyJQWQ
 import ReactPaginate from 'react-paginate';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import ProductService from '../services/ProductService';
 import Card from '../components/Card';
 import isEmpty from '../components/utils';
@@ -82,6 +82,11 @@ function ListProduct() {
           <Form.Row>
             <Form.Group as={Col}>
               <InputGroup>
+                <InputGroup.Prepend className="mx-3">
+                  <InputGroup.Text>
+                    <FontAwesomeIcon icon={faPlus} />
+                  </InputGroup.Text>
+                </InputGroup.Prepend>
                 <InputGroup.Prepend>
                   <InputGroup.Text>
                     <FontAwesomeIcon icon={faSearch} />
