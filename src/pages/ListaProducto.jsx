@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { Form, Col, InputGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // https://codepen.io/monsieurv/pen/abyJQWQ
@@ -13,6 +15,8 @@ function ListProduct() {
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const itemsPerPage = 4;
+  const history = useHistory();
+
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
@@ -38,6 +42,11 @@ function ListProduct() {
     const newOffset = (event.selected * itemsPerPage) % products.length;
 
     setItemOffset(newOffset);
+  };
+
+  const nuevoProducto = () => {
+    const path = `/nuevoProducto`;
+    history.push(path);
   };
 
   const filter = (text) => {
@@ -83,9 +92,13 @@ function ListProduct() {
             <Form.Group as={Col}>
               <InputGroup>
                 <InputGroup.Prepend className="mx-3">
-                  <InputGroup.Text>
+                  <button
+                    type="button"
+                    onClick={() => nuevoProducto()}
+                    className="btn btn-outline-primary w-100"
+                  >
                     <FontAwesomeIcon icon={faPlus} />
-                  </InputGroup.Text>
+                  </button>
                 </InputGroup.Prepend>
                 <InputGroup.Prepend>
                   <InputGroup.Text>
