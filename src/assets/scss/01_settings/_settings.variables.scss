@@ -1,0 +1,283 @@
+$color-principal: #0d6efd;
+
+:export {
+  colorPrincipal: $color-principal;
+}
+
+/*
+===========================================
+==  Paleta de colores  ====================
+===========================================
+*/
+$black: #000;
+$black1: #222;
+$black2: #262626;
+$black3: #333;
+$black4: #1f1f1f;
+
+$brand: #cd0810;
+$brand1: #d81d24;
+$brand2: #e53c27;
+$brand3: #e33226;
+$brand4: #b1040c;
+$brand-disable: #d6a8ab;
+
+//other brands
+$brand-travel: #0f69b2;
+$brand-facebook: #3a599b;
+$brand-gold: #a17946;
+$brand-gold-light: #daa152;
+
+//textos
+$grey: #393d49;
+$grey-medium: #5b5b5b;
+$grey-xmedium: #999;
+$grey-light: #bfbfbf;
+$grey-xlight: #dadada;
+$grey-lighter: #ededed;
+
+$selection-text-color: $grey; // color del texto seleccionado
+$body-color: $black; // color del texto por defecto
+$inverse-text-color: #fff; // color para fondos oscuros
+$white: #fff; // color para fondos oscuros
+
+//colores para form
+$ok: #337e2c;
+$warning: #d37f15;
+$error: #cd0810;
+$focus: #b8d4f4;
+
+$colors: (
+  black: $black,
+  text: $grey,
+  brand: $brand,
+  green: $ok,
+  warning: $ok,
+  error: $error
+);
+
+/*
+===========================================
+==  breakpoints  ==========================
+===========================================
+*/
+
+// breakpoints de bootstrap
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1245px
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1310px
+);
+
+$grid-columns: 12;
+$grid-gutter-width-base: 24px;
+$grid-gutter-widths: (
+  xs: $grid-gutter-width-base,
+  sm: $grid-gutter-width-base,
+  md: $grid-gutter-width-base,
+  lg: $grid-gutter-width-base,
+  xl: $grid-gutter-width-base
+);
+
+// breakpoints para typi
+$breakpoints: (
+  xs: map-get($grid-breakpoints, xs),
+  sm: map-get($grid-breakpoints, sm),
+  md: map-get($grid-breakpoints, md),
+  lg: map-get($grid-breakpoints, lg),
+  xl: map-get($grid-breakpoints, xl)
+);
+
+// breakpoint aliases
+$mobile-large: '>=sm';
+$tablet: '>=md';
+$desktop: '>=lg';
+$desktop-large: '>=xl';
+
+$only-mobile-small: '<sm';
+$only-mobile: '<md';
+$only-mobile-tablet: '<lg';
+$only-down-desktop: '<xl';
+
+$bp-aliases: (
+  1: (
+    'mobile-large',
+    $mobile-large
+  ),
+  2: (
+    'tablet',
+    $tablet
+  ),
+  3: (
+    'desktop',
+    $desktop
+  ),
+  4: (
+    'desktop-large',
+    $desktop-large
+  ),
+  5: (
+    'only-mobile-small',
+    $only-mobile-small
+  ),
+  6: (
+    'only-mobile',
+    $only-mobile
+  ),
+  7: (
+    'only-mobile-tablet',
+    $only-mobile-tablet
+  ),
+  8: (
+    'only-down-desktop',
+    $only-down-desktop
+  )
+);
+
+/*
+===========================================
+== fuentes ================================
+===========================================
+*/
+
+$modularscale: (
+  base: 16px,
+  ratio: 1.125
+);
+
+$font-family-base: 'Avant', Reboto, Corbel, Verdana, sans-serif;
+$font-family-headings: 'Avant', Reboto, Corbel, Verdana, sans-serif;
+$font-family-second: 'Roboto', Arial, Verdana, sans-serif;
+$font-weight-base: normal;
+
+// Nombre de tamaños de letra y sus comportamientos
+// Nombre de tamaños de letra y sus comportamientos
+$typi: (
+  xtiny: (
+    null: (
+      11px,
+      12px
+    )
+  ),
+  tiny: (
+    null: (
+      12px,
+      16px
+    )
+  ),
+  small: (
+    null: (
+      14px,
+      18px
+    )
+  ),
+  base: (
+    null: (
+      16px,
+      22px
+    )
+  ),
+  medium: (
+    null: (
+      18px,
+      24px
+    )
+  ),
+  h4: (
+    null: (
+      20px,
+      24px
+    )
+  ),
+  h3: (
+    null: (
+      22px,
+      28px
+    ),
+    md: (
+      24px,
+      32px
+    )
+  ),
+  h2: (
+    null: (
+      24px,
+      32px
+    ),
+    md: (
+      32px,
+      36px
+    )
+  ),
+  h1: (
+    null: (
+      28px,
+      32px
+    ),
+    md: (
+      42px,
+      46px
+    )
+  ),
+  hero: (
+    null: (
+      32px,
+      36px
+    ),
+    md: (
+      48px,
+      50px
+    )
+  ),
+  especial: (
+    null: (
+      85px,
+      90px
+    ),
+    md: (
+      96px,
+      96px
+    )
+  )
+);
+
+/*
+===========================================
+==  márgenes  =============================
+===========================================
+*/
+
+$spacing: (
+  tiny: 4px,
+  extrasmall: 8px,
+  xsmall: 10px,
+  small: 12px,
+  base: 16px,
+  medium: 24px,
+  large: 32px,
+  xlarge: 38px,
+  huge: 48px,
+  hero: 64px,
+  xhero: 78px,
+  extrahuge: 96px,
+  giant: 128px,
+  extragiant: 192px,
+  superhero: 256px
+);
+
+/*
+===========================================
+==  anchos  =============================
+===========================================
+*/
+$transition-default-duration: 0.3s;

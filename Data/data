@@ -1,0 +1,140 @@
+{
+    "source": "mockoon:1.11.0",
+    "data": [
+        {
+            "type": "environment",
+            "item": {
+                "uuid": "",
+                "lastMigration": 13,
+                "name": "Test AmsSolution",
+                "endpointPrefix": "api",
+                "latency": 0,
+                "port": 8080,
+                "routes": [
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "product/",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "[{\"imagen\":{\"alt\":\"alt\",\"src\":\"https://www.vhv.rs/dpng/d/1-14366_imagenes-de-laptop-png-transparent-png.png\"},\"description\":\"Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar el texto final\",\"marca\":\"Boat\",\"modelo\":\"Laptop1\",\"precio\":299,\"id\":297 },{\"imagen\":{\"alt\":\"alt\",\"src\":\"https://img1.freepng.es/20180611/jfr/kisspng-laptop-seagate-backup-plus-slim-portable-hdd-hard-mobile-hard-disk-5b1eb0207acb80.334540751528737824503.jpg\"},\"description\":\"Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar el texto final\",\"marca\":\"Seagate\",\"modelo\":\"Seagate plus\",\"precio\":299, \"id\":198 },{\"imagen\":{\"alt\":\"alt\",\"src\":\"http://assets.stickpng.com/images/588526fb6f293bbfae451a3a.png\"},\"description\":\"Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar el texto final\",\"marca\":\"Boat\",\"modelo\":\"Laptop2\",\"precio\":299,\"id\":299 },{\"imagen\":{\"alt\":\"alt\",\"src\":\"https://img2.freepng.es/20180920/hlw/kisspng-netbook-laptop-computer-hardware-download-5ba3a7daddc434.8087336015374519949084.jpg\"},\"description\":\"Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar el texto final\",\"marca\":\"Boat\",\"modelo\":\"Laptop3\",\"precio\":299,\"id\":296 },{\"imagen\":{\"alt\":\"alt\",\"src\":\"https://img2.freepng.es/20180920/hlw/kisspng-netbook-laptop-computer-hardware-download-5ba3a7daddc434.8087336015374519949084.jpg\"},\"description\":\"Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar el texto final\",\"marca\":\"Boat\",\"modelo\":\"Laptop4\",\"precio\":299,\"id\":298 }]",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "product/*",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"marca\":\"HP\",\n  \"modelo\":\"HP Laptop 15-dy2024nr\",\n  \"precio\":\"299.00\",\n  \"cpu\":\"i5 8250u\",\n  \"ram\":\"16 gb\",\n  \"sistema\":\"Windows 11 Home\",\n  \"descripcion\":\"HP Laptop de 15 pulgadas, Intel Core i5-1135G7, Intel Iris Xe Graphics, 8 GB RAM, 256 GB SSD, Windows 11 Home (15-dy2024nr, plata natural)\",\n  \"resolucion\":\"1800x1200\",\n  \"bateria\":\"14.8 V\",\n  \"camara\":\"Sí\",\n  \"dimensiones\":\"15.6 Pulgadas\",\n  \"peso\":\"2 kg\",\n  \"imagen\":{\"alt\":\"alt\",\"src\":\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj55JNUS7N7p0UmNQd1KFn45srt4sCzQiw_g&usqp=CAU\"}\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "post",
+                        "endpoint": "cart/",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\"count\":4}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false
+                    }
+                ],
+                "proxyMode": false,
+                "proxyHost": "",
+                "https": false,
+                "cors": true,
+                "headers": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Origin",
+                        "value": "*"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Headers",
+                        "value": "*"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Credentials",
+                        "value": "true"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Methods",
+                        "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+                    }
+                ],
+                "proxyReqHeaders": [
+                    {
+                        "key": "",
+                        "value": ""
+                    }
+                ],
+                "proxyResHeaders": [
+                    {
+                        "key": "",
+                        "value": ""
+                    }
+                ]
+            }
+        }
+    ]
+}

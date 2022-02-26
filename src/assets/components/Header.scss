@@ -1,0 +1,41 @@
+// #navbarScroll {
+//   .boton-C2 {
+//     border: 2px solid #0c1117;
+//     background-color: transparent !important;
+//     width: auto;
+//     color: #0c1117;
+//   }
+// }
+
+.header {
+  .header-btn-right {
+    margin-top: 0px;
+    width: 30px;
+    margin-right: 25px;
+  }
+
+  .order-nav {
+    order: 0;
+    margin-left: auto;
+  }
+
+  @media (min-width: 992px) {
+    .order-nav {
+      order: 1;
+      margin-left: auto;
+    }
+  }
+
+  .carNumber {
+    color: white;
+    position: relative;
+    right: 34px;
+    width: 14px;
+    height: 14px;
+    bottom: 17px;
+    background: $color-principal;
+    font-size: 14px;
+    padding: 2px;
+    border-radius: 50%;
+  }
+}
