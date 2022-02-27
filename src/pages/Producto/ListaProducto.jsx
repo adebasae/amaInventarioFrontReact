@@ -6,9 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // https://codepen.io/monsieurv/pen/abyJQWQ
 import ReactPaginate from 'react-paginate';
 import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons';
-import ProductService from '../services/ProductService';
-import Card from '../components/Card';
-import isEmpty from '../components/utils';
+import ProductService from '../../services/ProductService';
+import Card from '../../components/Card';
+import isEmpty from '../../components/utils';
 
 function ListProduct() {
   const [products, setProducts] = useState([]);

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
-import Detail from '../components/Detail';
-import ProductService from '../services/ProductService';
-import useAppContext from '../hooks/useAppContext';
-import variables from '../assets/scss/01_settings/_settings.variables.scss';
+import Detail from '../../components/Detail';
+import ProductService from '../../services/ProductService';
+import useAppContext from '../../hooks/useAppContext';
+import variables from '../../assets/scss/01_settings/_settings.variables.scss';
 
 const coloresBD = [
   { label: 'Azul', value: '1' },
