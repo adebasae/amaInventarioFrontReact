@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-export default function ListItem(props) {
+export default function ListItem() {
   const [todos, setTodos] = useState(() => {
     const savedTodos = localStorage.getItem('todos');
     if (savedTodos) {
