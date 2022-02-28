@@ -2,11 +2,13 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DataTable from 'react-data-table-component';
+import Modal from '../../components/UI/Modal/Modal';
+import ProductStafModal from './ProductStafModal';
 
 function NuevoProducto() {
   const [materiales, setMateriales] = useState([]);
-  // const [actionModal, setActionModal] = useState(1);
-  // const [productModal, setProductoModal] = useState(nul`l);
+  const [actionModal, setActionModal] = useState(1);
+  const [productModal, setProductoModal] = useState(null);
   const [show, setShow] = useState(false);
 
   const [perPage, setPerPage] = useState(30);
@@ -19,10 +21,8 @@ function NuevoProducto() {
   const showModal = useCallback(
     (showProduct, action) => {
       setShow(!show);
-      // setPersonModal(showProduct);
-      // setActionModal(action);
-      console.log(action);
-      console.log(showProduct);
+      setProductoModal(showProduct);
+      setActionModal(action);
     },
     [show]
   );
@@ -77,7 +77,7 @@ function NuevoProducto() {
           <button
             type="button"
             classN="btn btn-svg btn-form"
-            clicked={() => showModal(row, 2)}
+            onClick={() => showModal(row, 2)}
           >
             <FontAwesomeIcon icon={faPencilAlt} />
           </button>
@@ -131,6 +131,49 @@ function NuevoProducto() {
     }
   };
 
+  const addProduct = async () => {
+    // await addPersonService(worker)
+    //   .then((res) => {
+    //     if (res.data.hasError) {
+    //       const { descriptionError } = res.data;
+    //       addError(t(descriptionError), 'KO');
+    //       setPersonModal(worker);
+    //       return;
+    //     }
+    //     setPersons(res.data.pojo.listRespuestaPersona);
+    //     showModal(null, 1);
+    //     getAllPicker();
+    //   })
+    //   .catch((e) => {
+    //     addError(t('nlr-vaya-algo-no-ha-ido-bien'), 'KO');
+    //     setPersonModal(worker);
+    //     console.log('error', e);
+    //   });
+    // setLoading(false);
+  };
+
+  const updateProduct = async () => {
+    // setLoading(true);
+    // await updatePersonService(worker)
+    //   .then((res) => {
+    //     if (res.data.hasError) {
+    //       const { descriptionError } = res.data;
+    //       addError(t(descriptionError), 'KO');
+    //       setPersonModal(worker);
+    //       return;
+    //     }
+    //     setPersons(res.data.pojo.listRespuestaPersona);
+    //     getAllPicker();
+    //     showModal(null, 2);
+    //   })
+    //   .catch((e) => {
+    //     addError(t('nlr-vaya-algo-no-ha-ido-bien'), 'KO');
+    //     setPersonModal(worker);
+    //     console.log('error', e);
+    //   });
+    // setLoading(false);
+  };
+
   const crud = (
     <>
       <DataTable
@@ -149,16 +192,16 @@ function NuevoProducto() {
         actions={actionsMemo}
       />
 
-      {/* <Modal show={show} classN="" modalClosed={() => showModal(null, 1)}>
-        <PersonalStafModal
-          personData={personModal}
-          pickers={pickers}
+      <Modal show={show} classN="" modalClosed={() => showModal(null, 1)}>
+        <ProductStafModal
+          productData={productModal}
+          materiales={materiales}
           showModal={showModal}
-          addPerson={addPerson}
-          updatePerson={updatePerson}
+          addProduct={addProduct}
+          updateProduct={updateProduct}
           action={actionModal}
         />
-      </Modal> */}
+      </Modal>
     </>
   );
 
