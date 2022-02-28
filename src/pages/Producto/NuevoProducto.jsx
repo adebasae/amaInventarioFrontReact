@@ -10,7 +10,7 @@ function NuevoProducto() {
   const [actionModal, setActionModal] = useState(1);
   const [productModal, setProductoModal] = useState(null);
   const [show, setShow] = useState(false);
-
+  console.log(actionModal, productModal);
   const [perPage, setPerPage] = useState(30);
 
   // primera carga
@@ -131,49 +131,6 @@ function NuevoProducto() {
     }
   };
 
-  const addProduct = async () => {
-    // await addPersonService(worker)
-    //   .then((res) => {
-    //     if (res.data.hasError) {
-    //       const { descriptionError } = res.data;
-    //       addError(t(descriptionError), 'KO');
-    //       setPersonModal(worker);
-    //       return;
-    //     }
-    //     setPersons(res.data.pojo.listRespuestaPersona);
-    //     showModal(null, 1);
-    //     getAllPicker();
-    //   })
-    //   .catch((e) => {
-    //     addError(t('nlr-vaya-algo-no-ha-ido-bien'), 'KO');
-    //     setPersonModal(worker);
-    //     console.log('error', e);
-    //   });
-    // setLoading(false);
-  };
-
-  const updateProduct = async () => {
-    // setLoading(true);
-    // await updatePersonService(worker)
-    //   .then((res) => {
-    //     if (res.data.hasError) {
-    //       const { descriptionError } = res.data;
-    //       addError(t(descriptionError), 'KO');
-    //       setPersonModal(worker);
-    //       return;
-    //     }
-    //     setPersons(res.data.pojo.listRespuestaPersona);
-    //     getAllPicker();
-    //     showModal(null, 2);
-    //   })
-    //   .catch((e) => {
-    //     addError(t('nlr-vaya-algo-no-ha-ido-bien'), 'KO');
-    //     setPersonModal(worker);
-    //     console.log('error', e);
-    //   });
-    // setLoading(false);
-  };
-
   const crud = (
     <>
       <DataTable
@@ -193,14 +150,7 @@ function NuevoProducto() {
       />
 
       <Modal show={show} classN="" modalClosed={() => showModal(null, 1)}>
-        <ProductStafModal
-          productData={productModal}
-          materiales={materiales}
-          showModal={showModal}
-          addProduct={addProduct}
-          updateProduct={updateProduct}
-          action={actionModal}
-        />
+        <ProductStafModal />
       </Modal>
     </>
   );
