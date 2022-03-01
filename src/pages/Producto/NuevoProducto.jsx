@@ -15,7 +15,7 @@ function NuevoProducto() {
 
   // primera carga
   useEffect(() => {
-    setMateriales([{ nombre: 'adrian', cantidad: 3 }]);
+    setMateriales([{ nombre: 'chocolate', cantidad: 3 }]);
   }, []);
 
   const showModal = useCallback(
@@ -36,7 +36,7 @@ function NuevoProducto() {
       <button
         type="button"
         classN="btn btn-secundary "
-        clicked={() => showModal(null, 1)}
+        onClick={() => showModal(null, 1)}
       >
         <FontAwesomeIcon icon={faPlus} size="lg" />
         <span
@@ -150,10 +150,7 @@ function NuevoProducto() {
       />
 
       <Modal show={show} classN="" modalClosed={() => showModal(null, 1)}>
-        <ProductStafModal
-          material={{ value: 'chocolate', label: 'Chocolate' }}
-          cant="2"
-        />
+        <ProductStafModal material={productModal} />
       </Modal>
     </>
   );

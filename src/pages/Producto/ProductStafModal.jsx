@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select';
 import MaterialesService from '../../services/MaterialesService';
 
-function ProductStafModal({ material, cant }) {
-  const [materialSelected, setMaterialSelected] = useState(material);
-  const [cantidad, setCantidad] = useState(cant);
-
+function ProductStafModal({ material }) {
+  const [materialSelected, setMaterialSelected] = useState();
+  const [cantidad, setCantidad] = useState();
   const [allMateriales, setAllMateriales] = useState([]);
+
+  useEffect(() => {
+    if (material !== null) {
+      setMaterialSelected({ value: material.nombre, label: material.nombre });
+      setCantidad(material.cantidad);
+    }
+  }, [material]);
+
   useEffect(() => {
     MaterialesService.getAllMateriales().then((res) => {
       setAllMateriales(res.data);
@@ -28,7 +34,7 @@ function ProductStafModal({ material, cant }) {
             isSearchable
             name="color"
             options={allMateriales}
-            defaultValue={materialSelected}
+            value={materialSelected}
             onChange={setMaterialSelected}
           />
         </Form.Group>
@@ -40,10 +46,13 @@ function ProductStafModal({ material, cant }) {
             defaultValue={cantidad}
           />
         </Form.Group>
-
-        <Button variant="primary" type="submit">
+        <button
+          type="button"
+          className="btn btn-svg btn-form"
+          onClick={() => null}
+        >
           Submit
-        </Button>
+        </button>
       </Form>
     </div>
   );
