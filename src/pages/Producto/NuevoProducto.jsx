@@ -150,7 +150,10 @@ function NuevoProducto() {
       />
 
       <Modal show={show} classN="" modalClosed={() => showModal(null, 1)}>
-        <ProductStafModal />
+        <ProductStafModal
+          material={{ value: 'chocolate', label: 'Chocolate' }}
+          cant="2"
+        />
       </Modal>
     </>
   );

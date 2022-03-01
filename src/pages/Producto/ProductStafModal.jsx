@@ -2,29 +2,24 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select';
+import MaterialesService from '../../services/MaterialesService';
 
-function ProductStafModal({ materiales, cant }) {
-  const [materialSelected, setMaterialSelected] = useState();
-  const [cantidad, setCantidad] = useState();
-  console.log(cant);
+function ProductStafModal({ material, cant }) {
+  const [materialSelected, setMaterialSelected] = useState(material);
+  const [cantidad, setCantidad] = useState(cant);
 
+  const [allMateriales, setAllMateriales] = useState([]);
   useEffect(() => {
-    setMaterialSelected();
-    setCantidad(0);
+    MaterialesService.getAllMateriales().then((res) => {
+      setAllMateriales(res.data);
+    });
   }, []);
+
+  console.log(setCantidad);
 
   return (
     <div className=" container">
       <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Cantidad</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Cantidad"
-            defaultValue={cantidad}
-          />
-        </Form.Group>
-
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Materiales</Form.Label>
           <Select
@@ -32,12 +27,17 @@ function ProductStafModal({ materiales, cant }) {
             className="form-control-block"
             isSearchable
             name="color"
-            options={materiales}
-            onChange={(event) => {
-              console.log(event);
-              // inputChangedHandler(event, ControlesEnum.TIPOPERFIL);
-            }}
-            value={materialSelected}
+            options={allMateriales}
+            defaultValue={materialSelected}
+            onChange={setMaterialSelected}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Cantidad</Form.Label>
+          <Form.Control
+            type="number"
+            placeholder="Cantidad"
+            defaultValue={cantidad}
           />
         </Form.Group>
 
