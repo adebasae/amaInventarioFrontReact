@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Select from 'react-select';
 import MaterialesService from '../../services/MaterialesService';
 
-function ProductStafModal({ material }) {
+function ProductStafModal({ material, accion, saveFunction }) {
   const [materialSelected, setMaterialSelected] = useState();
   const [cantidad, setCantidad] = useState();
   const [allMateriales, setAllMateriales] = useState([]);
@@ -22,6 +22,11 @@ function ProductStafModal({ material }) {
   }, []);
 
   console.log(setCantidad);
+
+  const submitHandler = () => {
+    const toSubmit = { nombre: materialSelected.value, cantidad };
+    saveFunction(toSubmit);
+  };
 
   return (
     <div className=" container">
@@ -49,9 +54,9 @@ function ProductStafModal({ material }) {
         <button
           type="button"
           className="btn btn-svg btn-form"
-          onClick={() => null}
+          onClick={(e) => submitHandler(e)}
         >
-          Submit
+          {accion === 1 ? 'Añadir' : 'Modificar'}
         </button>
       </Form>
     </div>

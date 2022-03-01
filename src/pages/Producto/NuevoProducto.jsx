@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DataTable from 'react-data-table-component';
 import Modal from '../../components/UI/Modal/Modal';
 import ProductStafModal from './ProductStafModal';
+import MaterialesService from '../../services/MaterialesService';
 
 function NuevoProducto() {
   const [materiales, setMateriales] = useState([]);
@@ -131,6 +132,10 @@ function NuevoProducto() {
     }
   };
 
+  const saveFunction = (itemToSave) => {
+    MaterialesService.saveMaterial(itemToSave);
+  };
+
   const crud = (
     <>
       <DataTable
@@ -150,7 +155,11 @@ function NuevoProducto() {
       />
 
       <Modal show={show} classN="" modalClosed={() => showModal(null, 1)}>
-        <ProductStafModal material={productModal} />
+        <ProductStafModal
+          material={productModal}
+          saveFunction={saveFunction}
+          accion={actionModal}
+        />
       </Modal>
     </>
   );
