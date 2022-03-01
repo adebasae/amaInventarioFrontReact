@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select';
@@ -9,18 +9,20 @@ function ProductStafModal({ materiales, cant }) {
   console.log(cant);
 
   useEffect(() => {
-    setMaterialSelected([]);
+    setMaterialSelected();
     setCantidad(0);
-  }, [materiales]);
+  }, []);
 
   return (
     <div className=" container">
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Cantidad</Form.Label>
-          <Form.Control type="text" placeholder="Cantidad">
-            {cantidad}
-          </Form.Control>
+          <Form.Control
+            type="number"
+            placeholder="Cantidad"
+            defaultValue={cantidad}
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
