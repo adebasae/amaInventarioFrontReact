@@ -21,8 +21,6 @@ function ProductStafModal({ material, accion, saveFunction }) {
     });
   }, []);
 
-  console.log(setCantidad);
-
   const submitHandler = () => {
     const toSubmit = { nombre: materialSelected.value, cantidad };
     saveFunction(toSubmit);

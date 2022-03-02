@@ -11,12 +11,20 @@ function NuevoProducto() {
   const [actionModal, setActionModal] = useState(1);
   const [productModal, setProductoModal] = useState(null);
   const [show, setShow] = useState(false);
-  console.log(actionModal, productModal);
   const [perPage, setPerPage] = useState(30);
+
+  const cargar = () => {
+    MaterialesService.getMaterialesByIdProducto(2).then((res) => {
+      if (res === null) {
+        setMateriales([]);
+      }
+      setMateriales(res.data);
+    });
+  };
 
   // primera carga
   useEffect(() => {
-    setMateriales([{ nombre: 'chocolate', cantidad: 3 }]);
+    cargar();
   }, []);
 
   const showModal = useCallback(
@@ -134,6 +142,8 @@ function NuevoProducto() {
 
   const saveFunction = (itemToSave) => {
     MaterialesService.saveMaterial(itemToSave);
+    showModal(null, 1);
+    cargar();
   };
 
   const crud = (
@@ -159,6 +169,7 @@ function NuevoProducto() {
           material={productModal}
           saveFunction={saveFunction}
           accion={actionModal}
+          showModal={showModal}
         />
       </Modal>
     </>
