@@ -12,6 +12,9 @@ function ProductStafModal({ material, accion, saveFunction }) {
     if (material !== null) {
       setMaterialSelected({ value: material.nombre, label: material.nombre });
       setCantidad(material.cantidad);
+    } else {
+      setMaterialSelected(null);
+      setCantidad(0);
     }
   }, [material]);
 

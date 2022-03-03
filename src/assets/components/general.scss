@@ -58,3 +58,16 @@ button {
   -ms-transform: translate(-50%, -50%);
   z-index: 1000;
 }
+
+.container-flex {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.linea {
+  border-top: 1px solid black;
+  height: 2px;
+  padding: 0;
+  margin: 20px auto 0 auto;
+}

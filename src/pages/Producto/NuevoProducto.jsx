@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Form, Image } from 'react-bootstrap';
 import { faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DataTable from 'react-data-table-component';
@@ -12,13 +13,20 @@ function NuevoProducto() {
   const [productModal, setProductoModal] = useState(null);
   const [show, setShow] = useState(false);
   const [perPage, setPerPage] = useState(30);
+  const [producto, setProducto] = useState(null);
 
   const cargar = () => {
     MaterialesService.getMaterialesByIdProducto(2).then((res) => {
       if (res === null) {
+        setProducto(null);
         setMateriales([]);
       }
       setMateriales(res.data);
+      setProducto({
+        ...producto,
+        image:
+          'https://i.pinimg.com/originals/b2/2a/08/b22a08b5f7852a10ba942c95a5bd7b88.jpg'
+      });
     });
   };
 
@@ -41,21 +49,17 @@ function NuevoProducto() {
   };
 
   const actionsMemo = React.useMemo(
-    () => (
-      <button
-        type="button"
-        classN="btn btn-secundary "
-        onClick={() => showModal(null, 1)}
-      >
-        <FontAwesomeIcon icon={faPlus} size="lg" />
-        <span
-          className="u-text-transform-uppercase"
-          style={{ marginLeft: 10, position: 'relative' }}
+    () =>
+      materiales.length === 0 ? null : (
+        <button
+          type="button"
+          className="btn btn-outline-primary "
+          onClick={() => showModal(null, 1)}
         >
-          Añadir Material al Producto
-        </span>
-      </button>
-    ),
+          <FontAwesomeIcon icon={faPlus} />
+          <span className="u-text-transform-uppercase" />
+        </button>
+      ),
     [showModal]
   );
 
@@ -85,7 +89,7 @@ function NuevoProducto() {
         <div>
           <button
             type="button"
-            classN="btn btn-svg btn-form"
+            className="btn btn-svg btn-form"
             onClick={() => showModal(row, 2)}
           >
             <FontAwesomeIcon icon={faPencilAlt} />
@@ -141,19 +145,24 @@ function NuevoProducto() {
   };
 
   const saveFunction = (itemToSave) => {
-    MaterialesService.saveMaterial(itemToSave);
-    showModal(null, 1);
-    cargar();
+    MaterialesService.saveMaterial(itemToSave).then(() => {
+      showModal(null, 1);
+      cargar();
+    });
   };
 
-  const crud = (
+  const listaMateriales = (
     <>
+      <div className="linea" />
+      <h4 style={{ marginTop: '2rem' }}>Lista de Materiales</h4>
+
       <DataTable
         className=""
         pagination
         paginationTotalRows={materiales.length}
         onChangeRowsPerPage={handlePerRowsChange}
         paginationPerPage={perPage}
+        actionsMemo
         columns={columns}
         data={materiales}
         noDataComponent="Sin datos"
@@ -175,6 +184,59 @@ function NuevoProducto() {
     </>
   );
 
+  const form =
+    producto === null ? (
+      <p>Ha ocurrido un error al cargar el producto</p>
+    ) : (
+      <div className="">
+        <Form className="container-flex">
+          <div>
+            <Form.Group className="mb-3 " controlId="">
+              <Form.Label>Imagen</Form.Label>
+              <Form.Control type="text" />
+            </Form.Group>
+            <Form.Group className="mb-3 " controlId="">
+              <Image src={producto.image} alt="loading" />
+            </Form.Group>
+          </div>
+          <div>
+            <Form.Group className="mb-3 " controlId="formBasicEmail">
+              <Form.Label>Nombre</Form.Label>
+              <Form.Control type="text" placeholder="Nombre" />
+            </Form.Group>
+            <Form.Group className="mb-3 " controlId="formBasicEmail">
+              <Form.Label>Precio Venta</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Precio Venta"
+                defaultValue={0}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3 " controlId="formBasicEmail">
+              <Form.Label>Mano Obra</Form.Label>
+              <Form.Control type="text" placeholder="Mano Obra" />
+            </Form.Group>
+            <Form.Group className="mb-3 " controlId="formBasicEmail">
+              <Form.Label>Costo Definido</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Costo Definido"
+                defaultValue={0}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3 " controlId="formBasicEmail">
+              <Form.Label>Ganancia Bruta</Form.Label>
+              <Form.Control type="number" defaultValue={0} disabled />
+            </Form.Group>
+            <Form.Group className="mb-3 " controlId="formBasicEmail">
+              <Form.Label>Costo de Materiales</Form.Label>
+              <Form.Control type="number" defaultValue={0} disabled />
+            </Form.Group>
+          </div>
+        </Form>
+      </div>
+    );
+
   return (
     <>
       <section className="o-section--medium o-section--no-padding-top  o-section--no-padding-bottom section--background">
@@ -183,7 +245,8 @@ function NuevoProducto() {
         </div>
       </section>
       <section className="o-section--large form-datos">
-        <div className="container">{crud}</div>
+        <div className="container">{form}</div>
+        <div className="container">{listaMateriales}</div>
       </section>
     </>
   );
