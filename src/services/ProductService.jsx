@@ -3,8 +3,7 @@ import { sendServerWithCookie } from './utils';
 import api from '../api/api';
 
 const ProductService = {
-  getAllProducts: () =>
-    trackPromise(sendServerWithCookie('allProductCookie', '/product')),
+  getAllProducts: () => trackPromise(api.get('/product', {})),
   getProductById: (id) =>
     trackPromise(sendServerWithCookie('productDetail', `/product/${id}`)),
   addCar: (color, store, id) => {
