@@ -1,15 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
 
 function Card(props) {
-  const { imagen, description, marca, modelo, precio, id } = props;
-  const history = useHistory();
-
-  const comprar = () => {
-    const path = `/detalles/${id}`;
-    history.push(path);
-  };
+  const { imagen, description, marca, modelo, precio, id, btn } = props;
 
   return (
     <div className="card p-2">
@@ -35,7 +28,7 @@ function Card(props) {
       <div className="buttons d-flex flex-row gap-3 px-3 w-75">
         <button
           type="button"
-          onClick={() => comprar()}
+          onClick={() => btn(id)}
           className="btn btn-outline-primary w-100"
         >
           Comprar

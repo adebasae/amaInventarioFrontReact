@@ -4,7 +4,6 @@ import Layout from './components/Layout';
 import './App.css';
 import './assets/scss/globals.scss';
 import ListProduct from './pages/Producto/ListaProducto';
-import Details from './pages/Producto/Details';
 import NuevoProducto from './pages/Producto/NuevoProducto';
 import ListItem from './components/ListItem';
 
@@ -13,14 +12,8 @@ function App() {
     <Router>
       <Layout>
         <Switch>
-          {/* detalles */}
-
-          <Route path="/detalles/:id" component={Details} />
-
-          {/* defautl */}
-
           <Route path="/" exact component={ListProduct} />
-          <Route path="/nuevoProducto" exact component={NuevoProducto} />
+          <Route path="/nuevoProducto/:id" exact component={NuevoProducto} />
           <Route path="/listItem" exact component={ListItem} />
         </Switch>
       </Layout>

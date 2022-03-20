@@ -33,7 +33,6 @@ function ListProduct() {
     // Fetch items from another resources.
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(products.slice(itemOffset, endOffset));
-
     setPageCount(Math.ceil(products.length / itemsPerPage));
   }, [itemOffset, products]);
 
@@ -45,7 +44,7 @@ function ListProduct() {
   };
 
   const nuevoProducto = () => {
-    const path = `/nuevoProducto`;
+    const path = `/nuevoProducto/0`;
     history.push(path);
   };
 
@@ -67,6 +66,11 @@ function ListProduct() {
     });
   };
 
+  const details = (id) => {
+    const path = `/nuevoProducto/${id}`;
+    history.push(path);
+  };
+
   const productList = () =>
     currentItems.length === 0 ? (
       <p>Cargando...</p>
@@ -80,6 +84,7 @@ function ListProduct() {
           description={description}
           modelo={modelo}
           precio={precio}
+          btn={() => details(id)}
         />
       ))
     );

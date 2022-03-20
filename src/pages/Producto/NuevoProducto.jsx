@@ -6,8 +6,11 @@ import DataTable from 'react-data-table-component';
 import Modal from '../../components/UI/Modal/Modal';
 import ProductStafModal from './ProductStafModal';
 import MaterialesService from '../../services/MaterialesService';
+import ProductService from '../../services/ProductService';
 
-function NuevoProducto() {
+function NuevoProducto(props) {
+  const { match } = props;
+
   const [materiales, setMateriales] = useState([]);
   const [actionModal, setActionModal] = useState(1);
   const [productModal, setProductoModal] = useState(null);
@@ -16,17 +19,21 @@ function NuevoProducto() {
   const [producto, setProducto] = useState(null);
 
   const cargar = () => {
-    MaterialesService.getMaterialesByIdProducto(2).then((res) => {
+    ProductService.getProductById(match.params.id).then((res) => {
       if (res === null) {
         setProducto(null);
+        return;
+      }
+      setProducto({
+        ...res.data
+      });
+    });
+    MaterialesService.getMaterialesByIdProducto(match.params.id).then((res) => {
+      if (res === null) {
         setMateriales([]);
+        return;
       }
       setMateriales(res.data);
-      setProducto({
-        ...producto,
-        image:
-          'https://i.pinimg.com/originals/b2/2a/08/b22a08b5f7852a10ba942c95a5bd7b88.jpg'
-      });
     });
   };
 
@@ -190,19 +197,23 @@ function NuevoProducto() {
     ) : (
       <div className="">
         <Form className="container-flex">
-          <div>
-            <Form.Group className="mb-3 " controlId="">
+          <div style={{ flexGrow: 2 }}>
+            <Form.Group className="mb-3 w-75 " controlId="">
               <Form.Label>Imagen</Form.Label>
-              <Form.Control type="text" />
+              <Form.Control type="text" value={producto.imagen.src} />
             </Form.Group>
             <Form.Group className="mb-3 " controlId="">
-              <Image src={producto.image} alt="loading" />
+              <Image src={producto.imagen.src} alt="loading" />
             </Form.Group>
           </div>
           <div>
             <Form.Group className="mb-3 " controlId="formBasicEmail">
               <Form.Label>Nombre</Form.Label>
-              <Form.Control type="text" placeholder="Nombre" />
+              <Form.Control
+                type="text"
+                value={producto.nombre}
+                placeholder="Nombre"
+              />
             </Form.Group>
             <Form.Group className="mb-3 " controlId="formBasicEmail">
               <Form.Label>Precio Venta</Form.Label>
@@ -210,27 +221,43 @@ function NuevoProducto() {
                 type="text"
                 placeholder="Precio Venta"
                 defaultValue={0}
+                value={producto.precioVenta}
               />
             </Form.Group>
             <Form.Group className="mb-3 " controlId="formBasicEmail">
               <Form.Label>Mano Obra</Form.Label>
-              <Form.Control type="text" placeholder="Mano Obra" />
+              <Form.Control
+                type="text"
+                placeholder="Mano Obra"
+                value={producto.manoObra}
+              />
             </Form.Group>
             <Form.Group className="mb-3 " controlId="formBasicEmail">
-              <Form.Label>Costo Definido</Form.Label>
+              <Form.Label>Costo Indefinido</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Costo Definido"
                 defaultValue={0}
+                value={producto.costoIndefinido}
               />
             </Form.Group>
             <Form.Group className="mb-3 " controlId="formBasicEmail">
               <Form.Label>Ganancia Bruta</Form.Label>
-              <Form.Control type="number" defaultValue={0} disabled />
+              <Form.Control
+                type="number"
+                defaultValue={0}
+                disabled
+                value={producto.gananciaBruta}
+              />
             </Form.Group>
             <Form.Group className="mb-3 " controlId="formBasicEmail">
               <Form.Label>Costo de Materiales</Form.Label>
-              <Form.Control type="number" defaultValue={0} disabled />
+              <Form.Control
+                type="number"
+                defaultValue={0}
+                disabled
+                value={producto.costoMateriales}
+              />
             </Form.Group>
           </div>
         </Form>
