@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import moment from 'moment';
-import { Form, Image } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import ProductService from '../../services/ProductService';
 
 function VentaProducto() {
   // const [materiales, setMateriales] = useState([]);
   const [productos, setProductos] = useState([]);
   const [productoSelected, setProductoSelected] = useState();
+  const [productoSelectedData, setProductoSelectedData] = useState();
   const cargar = () => {
     ProductService.getProductToSelect().then((res) => {
       if (res === null) {
@@ -22,6 +23,12 @@ function VentaProducto() {
   useEffect(() => {
     cargar();
   }, []);
+
+  const cargarProducto = (id) => {
+    ProductService.getProductById(id).then((res) => {
+      setProductoSelectedData(res.data);
+    });
+  };
 
   useEffect(() => {
     if (productoSelected === undefined) return;
@@ -42,29 +49,6 @@ function VentaProducto() {
     ) : (
       <div className="">
         <Form className="container-flex">
-          <div style={{ flexGrow: 2 }}>
-            <Form.Group className="mb-3 w-75 " controlId="">
-              <Form.Label>Imagen</Form.Label>
-              <Form.Control
-                type="text"
-                value={
-                  productoSelected === undefined
-                    ? null
-                    : productoSelected.imagen.src
-                }
-              />
-            </Form.Group>
-            <Form.Group className="mb-3 " controlId="">
-              <Image
-                src={
-                  productoSelected === undefined
-                    ? null
-                    : productoSelected.imagen.src
-                }
-                alt="loading"
-              />
-            </Form.Group>
-          </div>
           <div>
             <Form.Group className="mb-3 " controlId="formBasicEmail">
               <Form.Label>Producto</Form.Label>
@@ -74,9 +58,9 @@ function VentaProducto() {
                 name="color"
                 options={productos}
                 // onBlur={() => filtrar()}
-                // onChange={(e: any) => {
-                //   setSelectedPersons(e);
-                // }}
+                onChange={(e) => {
+                  cargarProducto(e.value);
+                }}
                 // isClearable
                 placeholder="Seleccione Producto..."
                 // value={selectedPersons}
@@ -90,9 +74,9 @@ function VentaProducto() {
                 placeholder="Cantidad"
                 defaultValue={0}
                 value={
-                  productoSelected === undefined
+                  productoSelectedData === undefined
                     ? null
-                    : productoSelected.precioVenta
+                    : productoSelectedData.precioVenta
                 }
               />
             </Form.Group>
@@ -105,6 +89,73 @@ function VentaProducto() {
               />
             </Form.Group>
           </div>
+
+          {productoSelectedData && (
+            <>
+              <div>
+                <Form.Group className="mb-3 " controlId="formBasicEmail">
+                  <Form.Label>Venta: </Form.Label>
+                  <Form.Label>
+                    {productoSelectedData === undefined
+                      ? null
+                      : productoSelectedData.precioVenta}{' '}
+                  </Form.Label>
+                </Form.Group>
+                <Form.Group className="mb-3 " controlId="formBasicEmail">
+                  <Form.Label>Mano Obra:</Form.Label>
+                  <Form.Label>200</Form.Label>
+                </Form.Group>
+                <Form.Group className="mb-3 " controlId="formBasicEmail">
+                  <Form.Label>Gasto de Materiales</Form.Label>
+                  <Form.Label>200</Form.Label>
+                </Form.Group>
+                <Form.Group className="mb-3 " controlId="formBasicEmail">
+                  <Form.Label>Gasto Indefinido</Form.Label>
+                  <Form.Label>200</Form.Label>
+                </Form.Group>
+                <Form.Group className="mb-3 " controlId="formBasicEmail">
+                  <Form.Label>Ganancia Bruta</Form.Label>
+                  <Form.Label>200</Form.Label>
+                </Form.Group>
+              </div>
+              <div>
+                <Form.Group className="mb-3 " controlId="formBasicEmail">
+                  <Form.Label>Producto</Form.Label>
+                  <Select
+                    classNamePrefix="select "
+                    isSearchable
+                    name="color"
+                    options={productos}
+                    onChange={(e) => {
+                      cargarProducto(e.value);
+                    }}
+                    placeholder="Seleccione Producto..."
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3 " controlId="formBasicEmail">
+                  <Form.Label>Cantidad</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Cantidad"
+                    defaultValue={0}
+                    value={
+                      productoSelectedData === undefined
+                        ? null
+                        : productoSelectedData.precioVenta
+                    }
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3 " controlId="formBasicEmail">
+                  <Form.Label>Fecha</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={moment().format('YYYY-MM-DD')}
+                    disabled
+                  />
+                </Form.Group>
+              </div>
+            </>
+          )}
         </Form>
       </div>
     );
