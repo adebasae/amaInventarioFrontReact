@@ -6,6 +6,7 @@ import './assets/scss/globals.scss';
 import ListProduct from './pages/Producto/ListaProducto';
 import NuevoProducto from './pages/Producto/NuevoProducto';
 import ListItem from './components/ListItem';
+import VentaProducto from './pages/Producto/VentaProducto';
 
 function App() {
   const routes = (
@@ -14,6 +15,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={ListProduct} />
           <Route path="/nuevoProducto/:id" exact component={NuevoProducto} />
+          <Route path="/ventaProducto" exact component={VentaProducto} />
           <Route path="/listItem" exact component={ListItem} />
         </Switch>
       </Layout>
