@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import moment from 'moment';
-import { Form } from 'react-bootstrap';
+import { Form, Card } from 'react-bootstrap';
 import ProductService from '../../services/ProductService';
+import MaterialService from '../../services/MaterialesService';
 
 function VentaProducto() {
   // const [materiales, setMateriales] = useState([]);
   const [productos, setProductos] = useState([]);
   const [productoSelected, setProductoSelected] = useState();
+  const [materialSelectedData, setMaterialSelectedData] = useState();
   const [productoSelectedData, setProductoSelectedData] = useState();
   const cargar = () => {
     ProductService.getProductToSelect().then((res) => {
@@ -28,6 +30,9 @@ function VentaProducto() {
     ProductService.getProductById(id).then((res) => {
       setProductoSelectedData(res.data);
     });
+    MaterialService.getMaterialesByIdProducto(id).then((res) => {
+      setMaterialSelectedData(res.data);
+    });
   };
 
   useEffect(() => {
@@ -43,12 +48,22 @@ function VentaProducto() {
     });
   }, [productoSelected]);
 
+  const formListMateriales = () => {
+    if (materialSelectedData === undefined) return null;
+    return materialSelectedData.map((material) => (
+      <Card.Text>
+        <strong> {material.nombre}: </strong>
+        {material.cantidad}
+      </Card.Text>
+    ));
+  };
+
   const form =
     productos.length === 0 ? (
       <p>Ha ocurrido un error al cargar los productos</p>
     ) : (
       <div className="">
-        <Form className="container-flex">
+        <Form className="container-flex " id="form-venta-producto">
           <div>
             <Form.Group className="mb-3 " controlId="formBasicEmail">
               <Form.Label>Producto</Form.Label>
@@ -91,70 +106,41 @@ function VentaProducto() {
           </div>
 
           {productoSelectedData && (
-            <>
-              <div>
-                <Form.Group className="mb-3 " controlId="formBasicEmail">
-                  <Form.Label>Venta: </Form.Label>
-                  <Form.Label>
-                    {productoSelectedData === undefined
-                      ? null
-                      : productoSelectedData.precioVenta}{' '}
-                  </Form.Label>
-                </Form.Group>
-                <Form.Group className="mb-3 " controlId="formBasicEmail">
-                  <Form.Label>Mano Obra:</Form.Label>
-                  <Form.Label>200</Form.Label>
-                </Form.Group>
-                <Form.Group className="mb-3 " controlId="formBasicEmail">
-                  <Form.Label>Gasto de Materiales</Form.Label>
-                  <Form.Label>200</Form.Label>
-                </Form.Group>
-                <Form.Group className="mb-3 " controlId="formBasicEmail">
-                  <Form.Label>Gasto Indefinido</Form.Label>
-                  <Form.Label>200</Form.Label>
-                </Form.Group>
-                <Form.Group className="mb-3 " controlId="formBasicEmail">
-                  <Form.Label>Ganancia Bruta</Form.Label>
-                  <Form.Label>200</Form.Label>
-                </Form.Group>
-              </div>
-              <div>
-                <Form.Group className="mb-3 " controlId="formBasicEmail">
-                  <Form.Label>Producto</Form.Label>
-                  <Select
-                    classNamePrefix="select "
-                    isSearchable
-                    name="color"
-                    options={productos}
-                    onChange={(e) => {
-                      cargarProducto(e.value);
-                    }}
-                    placeholder="Seleccione Producto..."
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3 " controlId="formBasicEmail">
-                  <Form.Label>Cantidad</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Cantidad"
-                    defaultValue={0}
-                    value={
-                      productoSelectedData === undefined
-                        ? null
-                        : productoSelectedData.precioVenta
-                    }
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3 " controlId="formBasicEmail">
-                  <Form.Label>Fecha</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={moment().format('YYYY-MM-DD')}
-                    disabled
-                  />
-                </Form.Group>
-              </div>
-            </>
+            <div>
+              <Card>
+                <Card.Header>Detalles Producto</Card.Header>
+                <Card.Body>
+                  <Card.Text>
+                    <strong>Venta: </strong>
+                    {productoSelectedData.precioVenta}
+                  </Card.Text>
+                  <Card.Text>
+                    <strong>Mano Obra: </strong>
+                    {productoSelectedData.manoObra}
+                  </Card.Text>
+                  <Card.Text>
+                    <strong>Costo Materiales: </strong>
+                    {productoSelectedData.costoMateriales}
+                  </Card.Text>
+                  <Card.Text>
+                    <strong>Gasto Indefinido: </strong>
+                    {productoSelectedData.costoIndefinido}
+                  </Card.Text>
+                  <Card.Text>
+                    <strong>Ganancia Bruta: </strong>
+                    {productoSelectedData.gananciaBruta}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+          )}
+          {materialSelectedData && (
+            <div>
+              <Card>
+                <Card.Header>Detalles Materiales</Card.Header>
+                <Card.Body>{formListMateriales()}</Card.Body>
+              </Card>
+            </div>
           )}
         </Form>
       </div>
