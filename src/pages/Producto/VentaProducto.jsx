@@ -154,11 +154,15 @@ function VentaProducto() {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const producto = {
+    const productoToSend = {
       id: event.target.producto.value,
       cantidad: event.target.cantidad.value
     };
-    ProductService.saleProduct(producto);
+    ProductService.saleProduct(productoToSend).then((res) => {
+      const { producto, material } = res.data;
+      setProductoSelectedData(producto);
+      setMaterialSelectedData(material);
+    });
   };
 
   return (
