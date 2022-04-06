@@ -12,6 +12,7 @@ function ListaMateriales({ materiales, cargar }) {
   const [actionModal, setActionModal] = useState(1);
   const [productModal, setProductoModal] = useState(null);
 
+  console.log('materiales', materiales);
   const handlePerRowsChange = async (newPerPage) => {
     setPerPage(newPerPage);
   };
@@ -128,38 +129,39 @@ function ListaMateriales({ materiales, cargar }) {
     });
   };
 
-  const form = (
-    <>
-      <div className="linea" />
-      <h4 style={{ marginTop: '2rem' }}>Lista de Materiales</h4>
+  const form =
+    materiales.length === 0 ? null : (
+      <>
+        <div className="linea" />
+        <h4 style={{ marginTop: '2rem' }}>Lista de Materiales</h4>
 
-      <DataTable
-        className=""
-        pagination
-        paginationTotalRows={materiales.length}
-        onChangeRowsPerPage={handlePerRowsChange}
-        paginationPerPage={perPage}
-        actionsMemo
-        columns={columns}
-        data={materiales}
-        noDataComponent="Sin datos"
-        paginationComponentOptions={paginationOptions}
-        responsive
-        customStyles={customStyles}
-        striped
-        actions={actionsMemo}
-      />
-
-      <Modal show={show} classN="" modalClosed={() => showModal(null, 1)}>
-        <ProductStafModal
-          material={productModal}
-          saveFunction={saveFunction}
-          accion={actionModal}
-          showModal={showModal}
+        <DataTable
+          className=""
+          pagination
+          paginationTotalRows={materiales.length}
+          onChangeRowsPerPage={handlePerRowsChange}
+          paginationPerPage={perPage}
+          actionsMemo
+          columns={columns}
+          data={materiales}
+          noDataComponent="Sin datos"
+          paginationComponentOptions={paginationOptions}
+          responsive
+          customStyles={customStyles}
+          striped
+          actions={actionsMemo}
         />
-      </Modal>
-    </>
-  );
+
+        <Modal show={show} classN="" modalClosed={() => showModal(null, 1)}>
+          <ProductStafModal
+            material={productModal}
+            saveFunction={saveFunction}
+            accion={actionModal}
+            showModal={showModal}
+          />
+        </Modal>
+      </>
+    );
 
   return { form };
 }

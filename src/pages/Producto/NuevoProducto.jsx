@@ -109,6 +109,10 @@ function NuevoProducto(props) {
       </div>
     );
 
+  const listm =
+    materiales.length === 0 ? null : (
+      <ListaMateriales materiales={materiales} cargar={() => cargar} />
+    );
   return (
     <>
       <section className="o-section--medium o-section--no-padding-top  o-section--no-padding-bottom section--background">
@@ -118,9 +122,7 @@ function NuevoProducto(props) {
       </section>
       <section className="o-section--large form-datos">
         <div className="container">{form}</div>
-        <div className="container">
-          <ListaMateriales materiales={materiales} cargar={cargar} />
-        </div>
+        <div className="container">{listm}</div>
       </section>
     </>
   );
