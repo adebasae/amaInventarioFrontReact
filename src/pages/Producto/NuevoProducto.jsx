@@ -97,9 +97,7 @@ function NuevoProducto(props) {
       </div>
     );
 
-  const listm = (
-    <ListaMateriales idProducto={match.params.id} cargar={() => cargar} />
-  );
+  const listm = <ListaMateriales idProducto={match.params.id} />;
   return (
     <>
       <section className="o-section--medium o-section--no-padding-top  o-section--no-padding-bottom section--background">
