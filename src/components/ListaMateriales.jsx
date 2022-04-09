@@ -1,26 +1,46 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 import { faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ProductStafModal from '../pages/Producto/ProductStafModal';
 import Modal from './UI/Modal/Modal';
+import ProductStafModal from '../pages/Producto/ProductStafModal';
 import MaterialesService from '../services/MaterialesService';
 
-function ListaMateriales({ materiales, cargar }) {
+function ListaMateriales({ idProducto, cargar }) {
   const [perPage, setPerPage] = useState(30);
+  const [materiales, setMateriales] = useState([]);
+  const [materialModal, setMaterialModal] = useState(null);
   const [show, setShow] = useState(false);
   const [actionModal, setActionModal] = useState(1);
-  const [productModal, setProductoModal] = useState(null);
 
-  console.log('materiales', materiales);
   const handlePerRowsChange = async (newPerPage) => {
     setPerPage(newPerPage);
   };
 
+  useEffect(() => {
+    if (idProducto === undefined) {
+      MaterialesService.getAllMateriales().then((res) => {
+        if (res === null) {
+          setMateriales([]);
+          return;
+        }
+        setMateriales(res.data);
+      });
+    } else {
+      MaterialesService.getMaterialesByIdProducto(idProducto).then((res) => {
+        if (res === null) {
+          setMateriales([]);
+          return;
+        }
+        setMateriales(res.data);
+      });
+    }
+  }, [idProducto]);
+
   const showModal = useCallback(
-    (showProduct, action) => {
+    (showMaterial, action) => {
       setShow(!show);
-      setProductoModal(showProduct);
+      setMaterialModal(showMaterial);
       setActionModal(action);
     },
     [show]
@@ -107,6 +127,13 @@ function ListaMateriales({ materiales, cargar }) {
     }
   };
 
+  const saveFunction = (itemToSave) => {
+    MaterialesService.saveMaterial(itemToSave).then(() => {
+      showModal(null, 1);
+      cargar();
+    });
+  };
+
   const actionsMemo = React.useMemo(
     () =>
       materiales.length === 0 ? null : (
@@ -121,13 +148,6 @@ function ListaMateriales({ materiales, cargar }) {
       ),
     [showModal]
   );
-
-  const saveFunction = (itemToSave) => {
-    MaterialesService.saveMaterial(itemToSave).then(() => {
-      showModal(null, 1);
-      cargar();
-    });
-  };
 
   const form =
     materiales.length === 0 ? null : (
@@ -151,10 +171,9 @@ function ListaMateriales({ materiales, cargar }) {
           striped
           actions={actionsMemo}
         />
-
         <Modal show={show} classN="" modalClosed={() => showModal(null, 1)}>
           <ProductStafModal
-            material={productModal}
+            material={materialModal}
             saveFunction={saveFunction}
             accion={actionModal}
             showModal={showModal}
@@ -163,7 +182,7 @@ function ListaMateriales({ materiales, cargar }) {
       </>
     );
 
-  return { form };
+  return <div>{form}</div>;
 }
 
 export default ListaMateriales;

@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Image } from 'react-bootstrap';
-import MaterialesService from '../../services/MaterialesService';
 import ProductService from '../../services/ProductService';
 import ListaMateriales from '../../components/ListaMateriales';
 
 function NuevoProducto(props) {
   const { match } = props;
   const [producto, setProducto] = useState(null);
-  const [materiales, setMateriales] = useState([]);
+  // const [materiales, setMateriales] = useState([]);
 
   const cargar = () => {
-    console.log('cargar');
     ProductService.getProductById(match.params.id).then((res) => {
-      console.log('res.data', res.data);
-
       if (res === null) {
         setProducto(null);
         return;
@@ -21,13 +17,6 @@ function NuevoProducto(props) {
       setProducto({
         ...res.data
       });
-    });
-    MaterialesService.getMaterialesByIdProducto(match.params.id).then((res) => {
-      if (res === null) {
-        setMateriales([]);
-        return;
-      }
-      setMateriales(res.data);
     });
   };
 
@@ -109,10 +98,9 @@ function NuevoProducto(props) {
       </div>
     );
 
-  const listm =
-    materiales.length === 0 ? null : (
-      <ListaMateriales materiales={materiales} cargar={() => cargar} />
-    );
+  const listm = (
+    <ListaMateriales idProducto={match.params.id} cargar={() => cargar} />
+  );
   return (
     <>
       <section className="o-section--medium o-section--no-padding-top  o-section--no-padding-bottom section--background">
