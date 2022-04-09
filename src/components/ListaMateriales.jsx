@@ -9,6 +9,7 @@ import MaterialesService from '../services/MaterialesService';
 function ListaMateriales({ idProducto }) {
   const [perPage, setPerPage] = useState(30);
   const [materiales, setMateriales] = useState([]);
+  const [materialesDDL, setMaterialesDDL] = useState([]);
   const [materialModal, setMaterialModal] = useState(null);
   const [show, setShow] = useState(false);
   const [actionModal, setActionModal] = useState(1);
@@ -26,6 +27,13 @@ function ListaMateriales({ idProducto }) {
         }
         setMateriales(res.data);
       });
+      MaterialesService.getAllMaterialesToDDL().then((res) => {
+        if (res === null) {
+          setMaterialesDDL([]);
+          return;
+        }
+        setMaterialesDDL(res.data);
+      });
     } else {
       MaterialesService.getMaterialesByIdProducto(idProducto).then((res) => {
         if (res === null) {
@@ -33,6 +41,13 @@ function ListaMateriales({ idProducto }) {
           return;
         }
         setMateriales(res.data);
+      });
+      MaterialesService.getMaterialesByIdProductoDDL().then((res) => {
+        if (res === null) {
+          setMaterialesDDL([]);
+          return;
+        }
+        setMaterialesDDL(res.data);
       });
     }
   }, [idProducto]);
@@ -173,6 +188,7 @@ function ListaMateriales({ idProducto }) {
         <Modal show={show} classN="" modalClosed={() => showModal(null, 1)}>
           <ProductStafModal
             material={materialModal}
+            materiales={materialesDDL}
             saveFunction={saveFunction}
             accion={actionModal}
             showModal={showModal}

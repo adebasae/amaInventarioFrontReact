@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select';
-import MaterialesService from '../../services/MaterialesService';
 
-function ProductStafModal({ material, accion, saveFunction }) {
+function ProductStafModal({ materiales, material, accion, saveFunction }) {
   const [materialSelected, setMaterialSelected] = useState();
   const [cantidad, setCantidad] = useState();
-  const [allMateriales, setAllMateriales] = useState([]);
 
   useEffect(() => {
     if (material !== null) {
@@ -17,12 +15,6 @@ function ProductStafModal({ material, accion, saveFunction }) {
       setCantidad(0);
     }
   }, [material]);
-
-  useEffect(() => {
-    MaterialesService.getAllMateriales().then((res) => {
-      setAllMateriales(res.data);
-    });
-  }, []);
 
   const submitHandler = () => {
     const toSubmit = { nombre: materialSelected.value, cantidad };
@@ -39,7 +31,7 @@ function ProductStafModal({ material, accion, saveFunction }) {
             className="form-control-block"
             isSearchable
             name="color"
-            options={allMateriales}
+            options={materiales}
             value={materialSelected}
             onChange={setMaterialSelected}
           />

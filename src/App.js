@@ -5,8 +5,9 @@ import './App.css';
 import './assets/scss/globals.scss';
 import ListProduct from './pages/Producto/ListaProducto';
 import NuevoProducto from './pages/Producto/NuevoProducto';
-import ListItem from './components/ListItem';
+// import ListItem from './components/ListItem';
 import VentaProducto from './pages/Producto/VentaProducto';
+import ListaMateriales from './components/ListaMateriales';
 
 function App() {
   const routes = (
@@ -14,9 +15,10 @@ function App() {
       <Layout>
         <Switch>
           <Route path="/" exact component={ListProduct} />
-          <Route path="/nuevoProducto/:id" exact component={NuevoProducto} />
-          <Route path="/ventaProducto" exact component={VentaProducto} />
-          <Route path="/listItem" exact component={ListItem} />
+          <Route path="/nuevoProducto/:id" component={NuevoProducto} />
+          <Route path="/listaMateriales" component={ListaMateriales} />
+          <Route path="/ventaProducto" component={VentaProducto} />
+          {/* <Route path="/listItem"  component={ListItem} /> */}
         </Switch>
       </Layout>
     </Router>
