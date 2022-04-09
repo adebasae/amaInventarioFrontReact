@@ -6,7 +6,6 @@ import ListaMateriales from '../../components/ListaMateriales';
 function NuevoProducto(props) {
   const { match } = props;
   const [producto, setProducto] = useState(null);
-  // const [materiales, setMateriales] = useState([]);
 
   const cargar = () => {
     ProductService.getProductById(match.params.id).then((res) => {

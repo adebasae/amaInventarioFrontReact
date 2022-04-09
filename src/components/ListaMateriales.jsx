@@ -6,7 +6,7 @@ import Modal from './UI/Modal/Modal';
 import ProductStafModal from '../pages/Producto/ProductStafModal';
 import MaterialesService from '../services/MaterialesService';
 
-function ListaMateriales({ idProducto, cargar }) {
+function ListaMateriales({ idProducto }) {
   const [perPage, setPerPage] = useState(30);
   const [materiales, setMateriales] = useState([]);
   const [materialModal, setMaterialModal] = useState(null);
@@ -130,7 +130,6 @@ function ListaMateriales({ idProducto, cargar }) {
   const saveFunction = (itemToSave) => {
     MaterialesService.saveMaterial(itemToSave).then(() => {
       showModal(null, 1);
-      cargar();
     });
   };
 
